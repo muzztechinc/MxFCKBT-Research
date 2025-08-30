@@ -40,7 +40,7 @@ jobs:
         check-latest: true
 
     - name: Validate Gradle Wrapper
-      uses: gradle/wrapper-validation-action@v2
+      uses: gradle/actions/wrapper-validation@v3
 
     - name: Make gradlew executable
       run: chmod +x ./gradlew
