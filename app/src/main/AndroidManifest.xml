@@ -1,54 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <uses-feature android:name="android.hardware.bluetooth" android:required="true" />
-
-    <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher_mxfckbt"
-        android:label="MxFckBT 2025"
-        android:roundIcon="@mipmap/ic_launcher_round_mxfckbt"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.MxFckBT2025"
-        tools:targetApi="31">
-        
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="MxFckBT 2025 - Main Console">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".ScanActivity"
-            android:label="MxFckBT 2025 - Device Scan"
-            android:exported="false" />
-        <activity
-            android:name=".ExploitActivity"
-            android:label="MxFckBT 2025 - Exploit Console"
-            android:exported="false" />
-        <activity
-            android:name=".ResultsActivity"
-            android:label="MxFckBT 2025 - Results"
-            android:exported="false" />
-        
-        <!-- MXFCKBT 2025 Research Metadata -->
-        <meta-data android:name="com.mxfckbt.version" android:value="2025.1.0" />
-        <meta-data android:name="com.mxfckbt.codename" android:value="Nightshade" />
-        <meta-data android:name="com.mxfckbt.purpose" android:value="Authorized Bluetooth Security Research" />
-    </application>
-</manifest>
+<uses-permission android:name="android.permission.BLUETOOTH" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+<uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-feature android:name="android.hardware.bluetooth" android:required="true" />
