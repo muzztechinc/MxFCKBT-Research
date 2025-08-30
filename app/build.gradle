@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
 }
 
 android {
@@ -13,16 +12,13 @@ android {
         minSdk 26
         targetSdk 34
         versionCode 20250101
-        versionName "2025.1.0"
-
+        versionName "2025.1.0-ELITE"
+        
         buildConfigField "String", "APP_NAME", "\"MxFckBT 2025\""
         buildConfigField "String", "APP_CODENAME", "\"Project Nightshade\""
-        buildConfigField "String", "APP_VERSION", "\"2025.1.0 Research Build\""
+        buildConfigField "String", "APP_VERSION", "\"2025.1.0 Elite Research Build\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
     }
 
     buildTypes {
@@ -34,20 +30,18 @@ android {
         }
         debug {
             buildConfigField "String", "BUILD_TYPE", "\"DEBUG\""
-            applicationIdSuffix ".debug"
-            versionNameSuffix "-DEBUG"
         }
     }
-
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
+    
     buildFeatures {
         viewBinding true
         buildConfig true
@@ -61,12 +55,12 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.7.4'
     implementation 'androidx.navigation:navigation-ui-ktx:2.7.4'
-    
-    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
-    implementation 'com.google.code.gson:gson:2.10.1'
-    
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    
+    // MXFCKBT 2025 Dependencies
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
