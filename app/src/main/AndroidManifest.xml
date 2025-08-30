@@ -9,51 +9,46 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature android:name="android.hardware.bluetooth" android:required="true" />
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
 
     <application
-        android:name=".MxFCKBTApplication"
-        android:allowBackup="false"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher_mxfckbt"
-        android:label="MxFckBT 2025 - Research Platform"
+        android:label="MxFckBT 2025"
         android:roundIcon="@mipmap/ic_launcher_round_mxfckbt"
-        android:theme="@style/Theme.MxFCKBT"
-        android:requestLegacyExternalStorage="true"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MxFckBT2025"
+        tools:targetApi="31">
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
+            android:label="MxFckBT 2025 - Main Console">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name=".BluetoothService"
-            android:enabled="true"
-            android:exported="true" />
-
-        <receiver
-            android:name=".BootReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
+        
+        <activity
+            android:name=".ScanActivity"
+            android:label="MxFckBT 2025 - Device Scan"
+            android:exported="false" />
+        <activity
+            android:name=".ExploitActivity"
+            android:label="MxFckBT 2025 - Exploit Console"
+            android:exported="false" />
+        <activity
+            android:name=".ResultsActivity"
+            android:label="MxFckBT 2025 - Results"
+            android:exported="false" />
+        
+        <!-- MXFCKBT 2025 Research Metadata -->
         <meta-data android:name="com.mxfckbt.version" android:value="2025.1.0" />
-        <meta-data android:name="com.mxfckbt.codename" android:value="Project Nightshade" />
+        <meta-data android:name="com.mxfckbt.codename" android:value="Nightshade" />
         <meta-data android:name="com.mxfckbt.purpose" android:value="Authorized Bluetooth Security Research" />
-
     </application>
 </manifest>
