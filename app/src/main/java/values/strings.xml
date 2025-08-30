@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MxFckBT 2025</string>
+    <string name="app_full_name">MxFckBT 2025 Bluetooth Research Platform</string>
+    <string name="app_version">2025.1.0 Elite Build</string>
+    <string name="app_copyright">© 2025 MX Research Labs - Authorized Testing Only</string>
+    
+    <!-- Main Activity -->
+    <string name="welcome_message">MxFckBT 2025 Research Console\nVersion 2025.1.0</string>
+    <string name="status_ready">MxFckBT 2025 Ready for Operation</string>
+    
+    <!-- Scan Activity -->
+    <string name="scan_title">MxFckBT 2025 - Device Reconnaissance</string>
+    <string name="scan_status">MxFckBT Active Scan: Searching for Targets</string>
+    
+    <!-- Exploit Activity -->
+    <string name="exploit_title">MxFckBT 2025 - Exploit Console</string>
+    <string name="connect_button">MX Connect</string>
+    <string name="bruteforce_button">MX Bruteforce</string>
+    <string name="sdp_button">MX SDP Attack</string>
+    
+    <!-- Messages -->
+    <string name="disclaimer">MxFckBT 2025 is for authorized security research only. Unauthorized use is prohibited.</string>
+    <string name="permission_denied">MxFckBT 2025 requires Bluetooth permissions to function</string>
+</resources>
