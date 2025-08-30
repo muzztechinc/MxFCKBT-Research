@@ -1,7 +1,7 @@
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.github.ben-manes.versions' version '0.50.0' // Dependency updates
 }
 
 android {
@@ -17,8 +17,7 @@ android {
 
         buildConfigField "String", "APP_NAME", "\"MxFckBT 2025\""
         buildConfigField "String", "APP_CODENAME", "\"Project Nightshade\""
-        buildConfigField "String", "APP_VERSION", "\"2025.1.0 Elite Research Build\""
-        buildConfigField "String", "APP_BUILD_DATE", "\"${new Date().format('yyyy-MM-dd HH:mm:ss')}\""
+        buildConfigField "String", "APP_VERSION", "\"2025.1.0 Research Build\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -29,27 +28,32 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
             buildConfigField "String", "BUILD_TYPE", "\"RELEASE\""
-            debuggable false
-            jniDebuggable false
-            renderscriptDebuggable false
         }
         debug {
             buildConfigField "String", "BUILD_TYPE", "\"DEBUG\""
             applicationIdSuffix ".debug"
             versionNameSuffix "-DEBUG"
+            testCoverageEnabled = true
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
+        freeCompilerArgs += [
+            "-Xopt-in=kotlin.RequiresOptIn",
+            "-Xjvm-default=all",
+            "-Xstring-concat=inline"
+        ]
     }
 
     buildFeatures {
@@ -61,27 +65,106 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += '/META-INF/*.version'
+            excludes += '**/attach_hotspot_windows.dll'
+            excludes += 'META-INF/licenses/**'
+            excludes += 'META-INF/AL2.0'
+            excludes += 'META-INF/LGPL2.1'
+        }
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
+    // Build cache configuration
+    buildCache {
+        local {
+            enabled = true
+            directory = new File(rootDir, 'build-cache')
+            removeUnusedEntriesAfterDays = 7
         }
     }
 }
 
+// Dependency versions
+ext {
+    kotlinVersion = '1.9.22'
+    coroutinesVersion = '1.7.3'
+    okhttpVersion = '4.12.0'
+    gsonVersion = '2.10.1'
+}
+
 dependencies {
+    // Core Android
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.4'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.7.4'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.5'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
-    implementation 'androidx.activity:activity-compose:1.8.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
     
-    // MXFCKBT 2025 Specific Dependencies
-    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
-    implementation 'com.google.code.gson:gson:2.10.1'
+    // Bluetooth specific
+    implementation 'androidx.bluetooth:bluetooth:1.0.0-alpha05'
+    implementation 'no.nordicsemi.android:ble:2.7.2'
     
+    // Networking
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    
+    // Serialization
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    
+    // Desugaring for newer Java APIs
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+    
+    // Testing
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+    testImplementation 'io.mockk:mockk:1.13.8'
+    
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+}
+
+// Build scan plugin for performance monitoring
+plugins {
+    id 'com.gradle.build-scan' version '3.16.2'
+}
+
+buildScan {
+    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+    termsOfServiceAgree = 'yes'
+    publishAlways()
+}
+
+// Dependency updates check
+dependencyUpdates {
+    checkForGradleUpdate = true
+    outputFormatter = "html"
+    outputDir = "build/dependencyUpdates"
+    reportfileName = "report"
+}
+
+// Task for cleaning build cache
+task cleanBuildCache(type: Delete) {
+    delete rootProject.buildDir, 'build-cache'
+}
+
+// Task for build performance report
+task buildPerformanceReport {
+    doLast {
+        println "=== Build Performance Report ==="
+        println "Project: MxFckBT Bluetooth Research"
+        println "Gradle Cache: ${gradle.startParameter.buildCacheEnabled ? 'ENABLED' : 'DISABLED'}"
+        println "Parallel Execution: ${gradle.startParameter.parallelProjectExecutionEnabled ? 'ENABLED' : 'DISABLED'}"
+        println "Configured On Demand: ${gradle.startParameter.configureOnDemand}"
+    }
 }
