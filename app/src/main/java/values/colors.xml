@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- MXFCKBT 2025 Color Scheme -->
+    <color name="mxfckbt_primary">#FF2B2D42</color>
+    <color name="mxfckbt_primary_dark">#FF1B1D32</color>
+    <color name="mxfckbt_accent">#FFD90429</color>
+    <color name="mxfckbt_text_primary">#FFFFFFFF</color>
+    <color name="mxfckbt_text_secondary">#B3FFFFFF</color>
+    
+    <color name="theme_mxfckbt_background">#FF0C0F1F</color>
+    <color name="theme_mxfckbt_surface">#FF1E2130</color>
+</resources>
